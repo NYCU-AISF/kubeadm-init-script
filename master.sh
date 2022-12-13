@@ -29,7 +29,9 @@ kubectl get pod -A
 
 # restart some service to enable CNI
 systemctl restart crio
+systemctl status crio
 systemctl restart kubelet
+systemctl status kubelet
 kubectl rollout restart -n kube-system deployment/coredns
 kubectl get nodes
 echo "${Green}✅ Flannel(CNI) installed successfully${NC}"

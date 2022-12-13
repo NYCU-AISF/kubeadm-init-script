@@ -39,5 +39,7 @@ fi
 
 # restart some service to enable CNI
 systemctl restart crio
+systemctl status crio
 systemctl restart kubelet
+systemctl status kubelet
 echo "${Green}✅ Flannel(CNI) installed successfully${NC}"

@@ -61,6 +61,7 @@ sudo apt-get update
 sudo apt-get install cri-o cri-o-runc -y
 
 systemctl start crio
+systemctl status crio
 echo "${Green}✅ CRI-O installed successfully${NC}"
 
 # 3. Install kubelet, kubectl and Kubeadm
@@ -83,6 +84,7 @@ sudo apt-get install -y jq
 sudo apt-mark hold kubelet kubeadm kubectl
 
 systemctl start kubelet
+systemctl status kubelet
 echo "${Green}✅ kubelet, kubectl and kubeadm are installed successfully${NC}"
 
 
