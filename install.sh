@@ -7,8 +7,6 @@ NC='\033[0m'
 
 # 1. Default setting
 echo "${Yellow}🚀 Start default setting...${NC}"
-# make script exit if a command fails (setting all this flag to let debugging easier)
-set -euxo pipefail
 
 # disable swap
 sudo swapoff -a
