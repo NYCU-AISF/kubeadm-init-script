@@ -11,6 +11,9 @@ echo "${Yellow}🚀 Start default setting...${NC}"
 # disable swap
 sudo swapoff -a
 
+# clean apt
+sudo apt-get clean
+
 # keeps the swaf off during reboot
 (crontab -l 2>/dev/null; echo "@reboot /sbin/swapoff -a") | crontab - || true
 sudo apt-get update -y
