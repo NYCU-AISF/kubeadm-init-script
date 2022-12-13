@@ -7,15 +7,15 @@ NC='\033[0m'
 
 # 1. Checking
 echo "${Yellow}🚀 Start checking env...${NC}"
-if [[ -z "${CONTROL_PLANE_IP}" ]]; then
+if [ x"${CONTROL_PLANE_IP}" == "x" ]; then
   echo "${Red}🚨 Need to specify env variable CONTROL_PLANE_IP${NC}"
   exit 1
 fi
-if [[ -z "${TOKEN}" ]]; then
+if [ x"${TOKEN}" == "x" ]; then
   echo "${Red}🚨 Need to specify env variable TOKEN${NC}"
   exit 1
 fi
-if [[ -z "${HASH_TOKEN}" ]]; then
+if [ x"${HASH_TOKEN}" == "x" ]; then
   echo "${Red}🚨 Need to specify env variable HASH_TOKEN${NC}"
   exit 1
 fi
