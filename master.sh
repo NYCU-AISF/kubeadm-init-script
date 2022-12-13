@@ -8,6 +8,11 @@ NC='\033[0m'
 echo "${Yellow}🚀 Start init cluster...${NC}"
 # should record the token and hash token
 kubeadm init --pod-network-cidr=10.244.0.0/16 | tee kubeadm-init.log
+
+# auth cli with config
+mkdir -p "$HOME"/.kube
+sudo cp -i /etc/kubernetes/admin.conf "$HOME"/.kube/config
+sudo chown "$(id -u)":"$(id -g)" "$HOME"/.kube/config
 echo "${Green}✅ Cluster init successfully${NC}"
 
 # 2. Install flannel(CNI)
