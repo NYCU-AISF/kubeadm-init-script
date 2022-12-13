@@ -23,7 +23,7 @@ echo "${Green}✅ Finish checking env${NC}"
 
 # 2. Join cluster
 echo "${Yellow}🚀 Start installing flannel(CNI)...${NC}"
-kubeadm join "${CONTROL_PLANE_IP}":6443 --token "${TOKEN}" --discovery-token-ca-cert-hash "${HASH_TOKEN}"
+sudo kubeadm join "${CONTROL_PLANE_IP}":6443 --token "${TOKEN}" --discovery-token-ca-cert-hash "${HASH_TOKEN}"
 echo "${Green}✅ Flannel(CNI) installed successfully${NC}"
 
 # 3. Install flannel(CNI)
