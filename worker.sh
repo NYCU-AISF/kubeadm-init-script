@@ -49,22 +49,3 @@ iptables -F && iptables -t nat -F && iptables -t mangle -F && iptables -X
 
 kubeadm join "${CONTROL_PLANE_IP}":6443 --token "${TOKEN}" --discovery-token-ca-cert-hash "${HASH_TOKEN}"
 echo -e "${Green}✅ Join cluster successfully${NC}"
-
-# 3. Install flannel(CNI)
-echo -e "${Yellow}🚀 Start installing flannel(CNI)...${NC}"
-
-# add flannel into cluster
-export KUBECONFIG=/etc/kubernetes/admin.conf
-kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml
-sleep 5s
-FILE=/etc/cni/net.d/flannel.conflist
-if test -f "$FILE"; then
-    echo -e "${Green}✅ $FILE exists.${NC}"
-fi
-
-# restart some service to enable CNI
-systemctl restart crio
-systemctl --no-pager status crio
-systemctl restart kubelet
-systemctl --no-pager status kubelet
-echo -e "${Green}✅ Flannel(CNI) installed successfully${NC}"
