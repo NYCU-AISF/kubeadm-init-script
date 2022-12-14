@@ -11,6 +11,16 @@ then
   exit
 fi
 
+# check if token.sh file exist
+if test -f "./token.sh";
+then
+    echo -e "${Green}✅ token.sh exists.${NC}"
+else
+    echo -e "${Red}🚨 token.sh does not exist.${NC}"
+    exit
+fi
+source ./token.sh
+
 # 1. Checking
 echo -e "${Yellow}🚀 Start checking env...${NC}"
 if [ "x${CONTROL_PLANE_IP}" == "x" ]; then
