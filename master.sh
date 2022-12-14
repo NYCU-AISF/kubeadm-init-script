@@ -13,6 +13,10 @@ fi
 
 # 1. Default setting
 echo -e "${Yellow}🚀 Start init cluster...${NC}"
+# clean previous cluster
+kubeadm reset
+rm -rf /etc/cni/
+rm -rf /etc/kubernetes/
 # should record the token and hash token
 kubeadm init --pod-network-cidr=10.244.0.0/16 | tee kubeadm-init.log
 
