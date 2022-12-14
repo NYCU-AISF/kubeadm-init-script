@@ -6,7 +6,7 @@ Yellow='\033[0;33m'
 NC='\033[0m'
 
 # 1. Default setting
-echo "${Yellow}🚀 Start default setting...${NC}"
+echo -e "${Yellow}🚀 Start default setting...${NC}"
 
 # disable swap
 sudo swapoff -a
@@ -15,12 +15,12 @@ sudo swapoff -a
 sudo apt-get clean
 
 # keeps the swaf off during reboot
-(crontab -l 2>/dev/null; echo "@reboot /sbin/swapoff -a") | crontab - || true
+(crontab -l 2>/dev/null; echo -e "@reboot /sbin/swapoff -a") | crontab - || true
 sudo apt-get update -y
-echo "${Green}✅ Default setting successfully${NC}"
+echo -e "${Green}✅ Default setting successfully${NC}"
 
 # 2. Install CRI-O Runtime, which is a container runtime interface
-echo "${Yellow}🚀 Start installing CRI-O...${NC}"
+echo -e "${Yellow}🚀 Start installing CRI-O...${NC}"
 OS="xUbuntu_20.04"
 VERSION="1.23"
 
@@ -62,11 +62,11 @@ sudo apt-get install cri-o cri-o-runc -y
 
 systemctl start crio
 systemctl --no-pager status crio
-echo "${Green}✅ CRI-O installed successfully${NC}"
+echo -e "${Green}✅ CRI-O installed successfully${NC}"
 
 # 3. Install kubelet, kubectl and Kubeadm
 # install something about google cloud public signing key
-echo "${Yellow}🚀 Start installing kubelet, kubectl and kubeadm...${NC}"
+echo -e "${Yellow}🚀 Start installing kubelet, kubectl and kubeadm...${NC}"
 sudo apt-get update
 sudo apt-get install -y apt-transport-https ca-certificates curl
 sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
@@ -85,7 +85,7 @@ sudo apt-mark hold kubelet kubeadm kubectl
 
 systemctl start kubelet
 systemctl --no-pager status kubelet
-echo "${Green}✅ kubelet, kubectl and kubeadm are installed successfully${NC}"
+echo -e "${Green}✅ kubelet, kubectl and kubeadm are installed successfully${NC}"
 
 
 

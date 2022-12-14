@@ -6,7 +6,7 @@ Red='\033[0;31m'
 NC='\033[0m'
 
 # 1. Checking
-echo "${Yellow}🚀 Start checking env...${NC}"
+echo -e "${Yellow}🚀 Start checking env...${NC}"
 if [ "x${CONTROL_PLANE_IP}" == "x" ]; then
   echo -e "${Red}🚨 Need to specify env variable CONTROL_PLANE_IP${NC}"
   exit 1
@@ -19,22 +19,22 @@ if [ "x${HASH_TOKEN}" == "x" ]; then
   echo -e "${Red}🚨 Need to specify env variable HASH_TOKEN${NC}"
   exit 1
 fi
-echo "${Green}✅ Finish checking env${NC}"
+echo -e "${Green}✅ Finish checking env${NC}"
 
 # 2. Join cluster
-echo "${Yellow}🚀 Start installing flannel(CNI)...${NC}"
+echo -e "${Yellow}🚀 Start installing flannel(CNI)...${NC}"
 kubeadm join "${CONTROL_PLANE_IP}":6443 --token "${TOKEN}" --discovery-token-ca-cert-hash "${HASH_TOKEN}"
-echo "${Green}✅ Flannel(CNI) installed successfully${NC}"
+echo -e "${Green}✅ Flannel(CNI) installed successfully${NC}"
 
 # 3. Install flannel(CNI)
-echo "${Yellow}🚀 Start installing flannel(CNI)...${NC}"
+echo -e "${Yellow}🚀 Start installing flannel(CNI)...${NC}"
 
 # add flannel into cluster
 kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml
 sleep 5s
 FILE=/etc/cni/net.d/flannel.conflist
 if test -f "$FILE"; then
-    echo "${Green}✅ $FILE exists.${NC}"
+    echo -e "${Green}✅ $FILE exists.${NC}"
 fi
 
 # restart some service to enable CNI
@@ -42,4 +42,4 @@ systemctl restart crio
 systemctl --no-pager status crio
 systemctl restart kubelet
 systemctl --no-pager status kubelet
-echo "${Green}✅ Flannel(CNI) installed successfully${NC}"
+echo -e "${Green}✅ Flannel(CNI) installed successfully${NC}"

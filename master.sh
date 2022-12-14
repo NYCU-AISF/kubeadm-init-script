@@ -5,7 +5,7 @@ Yellow='\033[0;33m'
 NC='\033[0m'
 
 # 1. Default setting
-echo "${Yellow}🚀 Start init cluster...${NC}"
+echo -e "${Yellow}🚀 Start init cluster...${NC}"
 # should record the token and hash token
 kubeadm init --pod-network-cidr=10.244.0.0/16 | tee kubeadm-init.log
 
@@ -13,17 +13,17 @@ kubeadm init --pod-network-cidr=10.244.0.0/16 | tee kubeadm-init.log
 mkdir -p "$HOME"/.kube
 sudo cp -i /etc/kubernetes/admin.conf "$HOME"/.kube/config
 sudo chown "$(id -u)":"$(id -g)" "$HOME"/.kube/config
-echo "${Green}✅ Cluster init successfully${NC}"
+echo -e "${Green}✅ Cluster init successfully${NC}"
 
 # 2. Install flannel(CNI)
-echo "${Yellow}🚀 Start installing flannel(CNI)...${NC}"
+echo -e "${Yellow}🚀 Start installing flannel(CNI)...${NC}"
 
 # add flannel into cluster
 kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml
 sleep 5s
 FILE=/etc/cni/net.d/flannel.conflist
 if test -f "$FILE"; then
-    echo "${Green}✅ $FILE exists.${NC}"
+    echo -e "${Green}✅ $FILE exists.${NC}"
 fi
 kubectl get pod -A
 
@@ -34,10 +34,10 @@ systemctl restart kubelet
 systemctl --no-pager status kubelet
 kubectl rollout restart -n kube-system deployment/coredns
 kubectl get nodes
-echo "${Green}✅ Flannel(CNI) installed successfully${NC}"
+echo -e "${Green}✅ Flannel(CNI) installed successfully${NC}"
 
 # 3. Install nginx ingress
-echo "${Yellow}🚀 Start adding nginx ingress controller...${NC}"
+echo -e "${Yellow}🚀 Start adding nginx ingress controller...${NC}"
 
 # add nginx ingress controller to cluster
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.2.1/deploy/static/provider/cloud/deploy.yaml
@@ -51,4 +51,4 @@ kubectl create secret generic -n metallb-system memberlist --from-literal=secret
 
 # turn off the webhook admission service of nginx ingress
 kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
-echo "${Green}✅ Nginx ingress is added successfully${NC}"
+echo -e "${Green}✅ Nginx ingress is added successfully${NC}"
