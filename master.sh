@@ -2,7 +2,14 @@
 
 Green='\033[0;32m'
 Yellow='\033[0;33m'
+Red='\033[0;31m'
 NC='\033[0m'
+
+if [ "$EUID" -ne 0 ]
+then
+  echo -e "${Red}🚨 Please run as root${NC}"
+  exit
+fi
 
 # 1. Default setting
 echo -e "${Yellow}🚀 Start init cluster...${NC}"
@@ -10,10 +17,7 @@ echo -e "${Yellow}🚀 Start init cluster...${NC}"
 kubeadm init --pod-network-cidr=10.244.0.0/16 | tee kubeadm-init.log
 
 # auth cli with config
-mkdir -p "$HOME"/.kube
-sudo cp -i /etc/kubernetes/admin.conf "$HOME"/.kube/config
-sudo chown "$(id -u)":"$(id -g)" "$HOME"/.kube/config
-echo -e "${Green}✅ Cluster init successfully${NC}"
+export KUBECONFIG=/etc/kubernetes/admin.conf
 
 # 2. Install flannel(CNI)
 echo -e "${Yellow}🚀 Start installing flannel(CNI)...${NC}"

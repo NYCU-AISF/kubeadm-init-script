@@ -82,9 +82,6 @@ sudo apt-get install -y kubelet="$KUBERNETES_VERSION" kubectl="$KUBERNETES_VERSI
 sudo apt-get update -y
 sudo apt-get install -y jq
 sudo apt-mark hold kubelet kubeadm kubectl
-
-systemctl start kubelet
-systemctl --no-pager status kubelet
 echo -e "${Green}✅ kubelet, kubectl and kubeadm are installed successfully${NC}"
 
 

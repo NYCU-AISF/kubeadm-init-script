@@ -5,6 +5,12 @@ Yellow='\033[0;33m'
 Red='\033[0;31m'
 NC='\033[0m'
 
+if [ "$EUID" -ne 0 ]
+then
+  echo -e "${Red}🚨 Please run as root${NC}"
+  exit
+fi
+
 # 1. Checking
 echo -e "${Yellow}🚀 Start checking env...${NC}"
 if [ "x${CONTROL_PLANE_IP}" == "x" ]; then
@@ -22,9 +28,9 @@ fi
 echo -e "${Green}✅ Finish checking env${NC}"
 
 # 2. Join cluster
-echo -e "${Yellow}🚀 Start installing flannel(CNI)...${NC}"
+echo -e "${Yellow}🚀 Start joining the cluster...${NC}"
 kubeadm join "${CONTROL_PLANE_IP}":6443 --token "${TOKEN}" --discovery-token-ca-cert-hash "${HASH_TOKEN}"
-echo -e "${Green}✅ Flannel(CNI) installed successfully${NC}"
+echo -e "${Green}✅ Join cluster successfully${NC}"
 
 # 3. Install flannel(CNI)
 echo -e "${Yellow}🚀 Start installing flannel(CNI)...${NC}"
