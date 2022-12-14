@@ -42,6 +42,7 @@ echo -e "${Green}✅ Join cluster successfully${NC}"
 echo -e "${Yellow}🚀 Start installing flannel(CNI)...${NC}"
 
 # add flannel into cluster
+export KUBECONFIG=/etc/kubernetes/admin.conf
 kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml
 sleep 5s
 FILE=/etc/cni/net.d/flannel.conflist
