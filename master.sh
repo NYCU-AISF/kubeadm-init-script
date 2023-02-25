@@ -24,16 +24,20 @@ kubeadm init --pod-network-cidr=10.244.0.0/16 | tee kubeadm-init.log
 export KUBECONFIG=/etc/kubernetes/admin.conf
 
 # 2. Install flannel(CNI)
-echo -e "${Yellow}🚀 Start installing flannel(CNI)...${NC}"
+# echo -e "${Yellow}🚀 Start installing flannel(CNI)...${NC}"
 
 # add flannel into cluster
-kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml
-sleep 5s
-FILE=/etc/cni/net.d/flannel.conflist
-if test -f "$FILE"; then
-    echo -e "${Green}✅ $FILE exists.${NC}"
-fi
-kubectl get pod -A
+#kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml
+#sleep 5s
+#FILE=/etc/cni/net.d/flannel.conflist
+#if test -f "$FILE"; then
+#    echo -e "${Green}✅ $FILE exists.${NC}"
+#fi
+#kubectl get pod -A
+
+# 2. Install cilium(CNI)
+echo -e "${Yellow}🚀 Start installing cilium(CNI)...${NC}"
+cilium install
 
 # restart some service to enable CNI
 systemctl restart crio
