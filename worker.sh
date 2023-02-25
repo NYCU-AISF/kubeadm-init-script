@@ -38,7 +38,7 @@ fi
 echo -e "${Green}✅ Finish checking env${NC}"
 
 # 2. Join cluster
-echo -e "${Yellow}🚀 Start joining the cluster...${NC}"
+echo -e "${Yellow}🚀 Start resetting the cluster...${NC}"
 # clean dirty port and setting
 kubeadm reset
 rm -rf /etc/cni
@@ -46,6 +46,8 @@ rm -rf /etc/kubernetes
 systemctl daemon-reload
 systemctl restart kubelet
 iptables -F && iptables -t nat -F && iptables -t mangle -F && iptables -X
+echo -e "${Green}✅ Finish resetting cluster${NC}"
 
+echo -e "${Green}✅ Start joining the cluster${NC}"
 kubeadm join "${CONTROL_PLANE_IP}":6443 --token "${TOKEN}" --discovery-token-ca-cert-hash "${HASH_TOKEN}"
 echo -e "${Green}✅ Join cluster successfully${NC}"
